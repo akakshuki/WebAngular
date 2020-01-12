@@ -10,7 +10,7 @@
             </div>
           </div>
           <input name="OrderNo" id="OrderNo" #OrderNo="ngModel" type="text" [(ngModel)]="service.formdata.No"
-            class="form-control">
+            class="form-control" readonly>
         </div>
 
       </div>
@@ -50,33 +50,41 @@
       </div>
     </div>
   </div>
-  
+
   <table class="table table-borderless">
-      <thead class="thead-light">
-          <th>Item</th>
-          <th>Price</th>
-          <th>Quatity</th>
-          <th>Total</th>
-          <th><a  class="btn btn-success text-white" (click)="AddOrEditOrderItem(null,service.formdata.ID)"> <i class="fa fa-plus" aria-hidden="true"></i> Add Item </a></th>
-      </thead>
-      <tbody>
-          <tr *ngIf="service.orderItems.length==0">
-              <td class="font-italic text-center" colspan="5">
-                  No food item in List
-              </td>
-        </tr>
-       <tr *ngFor="let item of service.orderItems">
-           <td>
-               {{item.ItemName}}
-           </td>
-           <td>
-            {{item.Price}}
+    <thead class="thead-light">
+      <th>Item</th>
+      <th>Price</th>
+      <th>Quatity</th>
+      <th>Total</th>
+      <th><a class="btn btn-success text-white" (click)="AddOrEditOrderItem(null,service.formdata.ID)"> <i
+            class="fa fa-plus" aria-hidden="true"></i> Add Item </a></th>
+    </thead>
+    <tbody>
+      <tr *ngIf="service.orderItems.length==0">
+        <td class="font-italic text-center" colspan="5">
+          No food item in List
+        </td>
+      </tr>
+      <tr *ngFor="let item of service.orderItems; let i = index">
+        <td>
+          {{item.ProductName}}
         </td>
         <td>
-            {{item.Quantity}}
+          {{item.Price}}
         </td>
-       </tr>   
-      </tbody>
+        <td>
+          {{item.Quantity}}
+        </td>
+        <td>
+          {{item.Total}}
+        </td>
+        <td> <a class="btn btn-info text-white" (click)="AddOrEditOrderItem(i,service.formdata.ID)"> <i
+              class="fa fa-pencil" aria-hidden="true"></i> </a>
+          <a class="btn btn-danger text-white ml-2" (click)="DeleteOrderItem(item.ProductId,i)"> <i
+              class="fa fa-trash" aria-hidden="true"></i> </a></td>
+      </tr>
+    </tbody>
   </table>
   <div class="col-md-6">
     <div class="form-group">
