@@ -5,6 +5,7 @@ import { ItemService } from 'src/app/shared/item.service';
 import { Item } from 'src/app/shared/item.model';
 import { NgForm } from '@angular/forms';
 import { OrderService } from 'src/app/shared/order.service';
+import { Order } from 'src/app/shared/order.model';
 
 @Component({
   selector: 'app-order-items',
@@ -12,6 +13,7 @@ import { OrderService } from 'src/app/shared/order.service';
   styleUrls: ['./order-items.component.css']
 })
 export class OrderItemsComponent implements OnInit {
+  
   formData: OrderItem;
   itemList: Item[];
   isValid = false;
@@ -19,9 +21,14 @@ export class OrderItemsComponent implements OnInit {
     public dialogref: MatDialogRef<OrderItemsComponent>,
     private service: ItemService,
     private orderService: OrderService
-  ) { }
+  ) {
+    
+    
+
+   }
 
   ngOnInit() {
+    var model : Order;
     this.service.getItemList().then(res => this.itemList = res as Item[]);
     if ( this.data.orderItemIndex == null) {
       this.formData = {
@@ -67,5 +74,6 @@ export class OrderItemsComponent implements OnInit {
       this.isValid = false;
     return this.isValid;
   } 
+
 }
 

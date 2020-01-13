@@ -1,4 +1,4 @@
-<form #form="ngForm" autocomplete="off">
+<form #form="ngForm" autocomplete="off" *ngIf="service.formdata" (submit)= "onSubmit(form)">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -10,7 +10,7 @@
             </div>
           </div>
           <input name="OrderNo" id="OrderNo" #OrderNo="ngModel" type="text" [(ngModel)]="service.formdata.No"
-            class="form-control" readonly>
+            class="form-control" readonly >
         </div>
 
       </div>
@@ -19,8 +19,9 @@
       <div class="form-group">
         <label>Customer</label>
         <select name="CusId" id="CusId" #OrderNo="ngModel" type="text" [(ngModel)]="service.formdata.CusId"
-          class="form-control">
+          class="form-control" [class.is-invalid]="!isValid && service.formdata.CusId==0">
           <option value="0">--select--</option>
+      <option *ngFor="let item of customers" value="{{item.ID}}">{{item.Name}}</option>
         </select>
       </div>
     </div>
@@ -61,7 +62,7 @@
             class="fa fa-plus" aria-hidden="true"></i> Add Item </a></th>
     </thead>
     <tbody>
-      <tr *ngIf="service.orderItems.length==0">
+      <tr *ngIf="service.orderItems.length==0" [class.text-danger]="!isValid && service.orderItems.length == 0">
         <td class="font-italic text-center" colspan="5">
           No food item in List
         </td>

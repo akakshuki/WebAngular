@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import {MatDialogModule, MatDialogConfig} from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './orders/order/order.component';
@@ -30,7 +31,8 @@ import { OrderService } from './shared/order.service';
     MatSliderModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot() // ToastrModule added
    
   ],
   entryComponents:[OrderItemsComponent],
