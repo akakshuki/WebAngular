@@ -7,11 +7,13 @@ import { OrderComponent } from './orders/order/order.component';
 
 
 const routes :  Routes = [
+  //gan router mac dinh la cua Order
   {path: '', redirectTo:'order',pathMatch:'full'},
   {path : 'orders', component: OrdersComponent},
   {path : 'order', children:[
           {path : '', component: OrderComponent},
           {path : 'edit/:id', component: OrderComponent}
+          
   ]}
 ]
 

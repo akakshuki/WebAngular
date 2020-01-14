@@ -11,7 +11,7 @@ export class ItemService {
 
    }
    getItemList(){
-     this.getItemList
-     return this.http.get(environment.apiUrl+"/Products/").toPromise();
+     
+    return this.http.get(environment.apiUrl+"/Products/").toPromise();
    }
 }

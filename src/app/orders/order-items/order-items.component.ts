@@ -13,7 +13,7 @@ import { Order } from 'src/app/shared/order.model';
   styleUrls: ['./order-items.component.css']
 })
 export class OrderItemsComponent implements OnInit {
-  
+
   formData: OrderItem;
   itemList: Item[];
   isValid = false;
@@ -22,15 +22,15 @@ export class OrderItemsComponent implements OnInit {
     private service: ItemService,
     private orderService: OrderService
   ) {
-    
-    
 
-   }
+
+
+  }
 
   ngOnInit() {
-    var model : Order;
     this.service.getItemList().then(res => this.itemList = res as Item[]);
-    if ( this.data.orderItemIndex == null) {
+    //khai bao gia tri của form null kkhi khong gia tri san pham truyen vao tu ordrtItem component
+    if (this.data.orderItemIndex == null) {
       this.formData = {
         ID: null,
         ProductName: '',
@@ -40,10 +40,11 @@ export class OrderItemsComponent implements OnInit {
         Total: 0,
         ProductId: 0
       }
-    }else{
-      this.formData = Object.assign({},this.orderService.orderItems[this.data.orderItemIndex])
+    } else {
+      this.formData = Object.assign({}, this.orderService.orderItems[this.data.orderItemIndex])
     }
   }
+  //thay doi gia tri cua price theo san pham
   updatePrice(ctrl) {
     if (ctrl.selectedIndex == 0) {
       this.formData.Price = 0;
@@ -59,10 +60,13 @@ export class OrderItemsComponent implements OnInit {
     this.formData.Total = parseFloat((this.formData.Quantity * this.formData.Price).toFixed(2));
   }
   onSubmit(form: NgForm) {
+    //kỉm tra neu khong co gia tri nao rong thi them vao chuoi 
+    //neu da co gia tri truyen vao trước thi tiep tuc cong don vap mang
     if (this.validateForm(form.value)) {
-      if(this.data.orderItemIndex == null){
-      this.orderService.orderItems.push(form.value);}else{
-        this.orderService.orderItems[this.data.orderItemIndex]= form.value;
+      if (this.data.orderItemIndex == null) {
+        this.orderService.orderItems.push(form.value);
+      } else {
+        this.orderService.orderItems[this.data.orderItemIndex] = form.value;
       }
       this.dialogref.close();
     }
@@ -73,7 +77,7 @@ export class OrderItemsComponent implements OnInit {
     if (formData.ProductId == 0 || formData.Quantity == 0)
       this.isValid = false;
     return this.isValid;
-  } 
+  }
 
 }
 

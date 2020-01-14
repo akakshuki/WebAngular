@@ -16,7 +16,7 @@ export class OrderService {
 
   saveOrUpdateOrder() {
     var body = {
-     //them vao body mang Order tu formdata(Destructuring assignment)
+     //them vao body mang Order tu formdata va OrderDetail (Destructuring assignment)
       ...this.formdata,
       //ten list san pham bat buoc phai trung voi ten field trong model
       OrderDetails: this.orderItems
@@ -26,5 +26,12 @@ export class OrderService {
   }
   getOrderList(){
      return this.http.get(environment.apiUrl+'/Orders').toPromise();
+  }
+  getOrderById(id : number): any{
+    //danh sach cua order tra ve khong co kieu nen gan kieur any
+    return this.http.get(environment.apiUrl + '/Orders/'+id).toPromise();
+  }
+  deleteOrder(id : number){
+    return this.http.delete(environment.apiUrl + '/Orders/'+id).toPromise();
   }
 }

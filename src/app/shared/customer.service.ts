@@ -11,7 +11,6 @@ export class CustomerService {
 
   }
   getCustomerList() {
-    this.getCustomerList;
     return this.http.get(environment.apiUrl + "/Customers/").toPromise();
   }
 }

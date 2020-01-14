@@ -82,7 +82,7 @@
         </td>
         <td> <a class="btn btn-info text-white" (click)="AddOrEditOrderItem(i,service.formdata.ID)"> <i
               class="fa fa-pencil" aria-hidden="true"></i> </a>
-          <a class="btn btn-danger text-white ml-2" (click)="DeleteOrderItem(item.ProductId,i)"> <i
+          <a class="btn btn-danger text-white ml-2" (click)="DeleteOrderItem(item.ID,i)"> <i
               class="fa fa-trash" aria-hidden="true"></i> </a></td>
       </tr>
     </tbody>
@@ -92,6 +92,7 @@
       <button type="submit" class="btn btn-dark">
         <i class="fa fa-database"></i> Submit
       </button>
+      <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"> View Order</i></a>
     </div>
   </div>
 </form>

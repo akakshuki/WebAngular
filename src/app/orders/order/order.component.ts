@@ -6,7 +6,7 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -20,13 +20,21 @@ export class OrderComponent implements OnInit {
     private customerService: CustomerService,
     private dialog: MatDialog,
     private toastr: ToastrService, 
-    private router : Router) {
+    private router : Router,
+    private currentRoute: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-
-    this.resetForm();
+    let orderId = this.currentRoute.snapshot.paramMap.get('id');
+    if(orderId== null){
+      this.resetForm();
+    }else{
+      this.service.getOrderById(parseInt(orderId)).then(res =>{
+        this.service.formdata = res.order;
+        this.service.orderItems = res.orderDetails;
+      })
+    }
     this.customerService.getCustomerList().then(res => this.customers = res as Customer[]);
   }
   //reset form neu trong form khong co gi
@@ -38,7 +46,8 @@ export class OrderComponent implements OnInit {
       No: Math.floor(100000 + Math.random() * 900000).toString(),
       CusId: 0,
       PMethod: '',
-      GTotal: 0
+      GTotal: 0,
+      DeletedOrderProductIds: ''
     };
     this.service.orderItems = []
   }
@@ -57,6 +66,8 @@ export class OrderComponent implements OnInit {
   }
   //xoa order San pham
   DeleteOrderItem(OrderItemId: number, i: number) {
+    if(OrderItemId != null)
+    this.service.formdata.DeletedOrderProductIds += OrderItemId + ',';
     //xoa 1 phan tu thu i trong danh sach order
     this.service.orderItems.splice(i, 1);
     this.UpdateGrandTotal();
